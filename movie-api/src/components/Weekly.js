@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Detail from './Detail';
 
 function Week() {
   const [loading, setLoading] = useState(true);

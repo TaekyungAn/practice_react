@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Detail from './Detail';
 
 function Daily() {
   const [loading, setLoading] = useState(true);
@@ -11,18 +12,10 @@ function Daily() {
         `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=20220730`
       )
     ).json();
-    const moviedetail = await (
-      await fetch(
-        `https://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=f5eef3421c602c6cb7ea224104795888&movieCd=20209343`
-      )
-    ).json();
 
     const Title = daymovie.boxOfficeResult.dailyBoxOfficeList;
-    const Detail = moviedetail.movieInfoResult.movieInfo;
-    const newCombi = { daymovie: Title, moviedetail: Detail };
-    console.log(newCombi);
-    setMovies(newCombi);
-    console.log('movies', movies);
+    console.log(Title);
+    setMovies(Title);
     setLoading(false);
   };
 
@@ -44,8 +37,12 @@ function Daily() {
         <p>loading...</p>
       ) : (
         <div>
-          <p>{movies.daymovie[0].movieNm}</p>
-          <p>{movies.moviedetail.actors[0].peopleNm}</p>
+          {movies.map(movie => (
+            <div key={movie.rnum}>
+              <p>{movie.movieNm}</p>
+              <Detail movieCd={movie.movieCd} />
+            </div>
+          ))}
         </div>
       )}
     </>
