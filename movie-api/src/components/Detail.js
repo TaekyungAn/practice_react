@@ -19,12 +19,6 @@ function Detail({ movieCd }) {
   return (
     <>
       <p>{detail.movieNmEn}</p>
-      <ul>
-        {detail.genres.map(g => (
-          <p>{g[0]}</p>
-        ))}
-      </ul>
-      <p>{detail.genres}</p>
       <p>---</p>
     </>
   );
